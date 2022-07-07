@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- <h1 class="text-center p-1 my-1"> DEVOLUCIONES <h1> -->
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+{% if current_user.username == "Administrador" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;"> DEVOLUCIONES </h2>
+
+  <div class="container p-4">
+    <div class="jumbotron">
+      <form method="POST">  <!--action="/action_page.php target=_self"-->
+
+        <label for="idqui">Código del equipo a devolver:</label>
+        <input type="text" id="idqui" name="ceqdeb" placeholder="Código del equipo..." required>
+
+        <label for="idbser" data-toggle="tooltip" data-placement="right" >Observación de la entrega: </label>  <!-- title="La observacion no puede contener los caracteres 'Ñ, ñ'"  (No puedes utilizar los caracteres 'Ñ, ñ') !-->
+        <input type="text" id="idbser" name="obser" placeholder="Observación..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required> <!--  pattern="[^'\xf1]+[^'\xd1]+"  title="No puedes utilizar los caracteres 'Ñ, ñ'" !-->
+
+        <label for="did2">ID:</label>
+        <input type="password"  pattern="-?[0-9]*(\.[0-9]+)?" maxlength="4" minlength="4" id="did2" name="did2" placeholder="ID..." title="La ID solo contienen caracteres numéricos" required>
+
+        <input type="submit" value="Guardar">
+      </form>
+      <h3 class="text-center p-4 my-1">{{info}}</h3>
+      <h4 class="text-center p-4 my-1" style="color:rgb(255, 57, 57);">{{info2}}</h4>
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+    </div>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h2>Préstamos actuales</h2>
+        <p>La siguiente tabla muestra la información de los equipos prestados actualmente:</p>
+        {{ tabla_prestamos }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if current_user.username == "Monitores" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;"> DEVOLUCIONES </h2>
+
+  <div class="container p-4">
+    <div class="jumbotron">
+      <form method="POST">  <!--action="/action_page.php target=_self"-->
+
+        <label for="idqui">Código del equipo a devolver:</label>
+        <input type="text" id="idqui" name="ceqdeb" placeholder="Código del equipo..." required>
+
+        <label for="idbser" data-toggle="tooltip" data-placement="right" >Observación de la entrega: </label>  <!--title="La observacion no puede contener los caracteres 'Ñ, ñ'" (No puedes utilizar los caracteres 'Ñ, ñ')!-->
+        <input type="text" id="idbser" name="obser" placeholder="Observación..." title="No puedes utilizar los caracteres 'Ñ, ñ'"required> <!--  pattern="[^'\xf1]+[^'\xd1]+"  title="No puedes utilizar los caracteres 'Ñ, ñ'" !-->
+
+        <label for="did2">ID:</label>
+        <input type="password"  pattern="-?[0-9]*(\.[0-9]+)?"  maxlength="4" minlength="4" id="did2" name="did2" placeholder="ID..." title="La ID solo contienen caracteres numéricos" required>
+
+        <input type="submit" value="Guardar">
+      </form>
+      <h3 class="text-center p-4 my-1">{{info}}</h3>
+      <h4 class="text-center p-4 my-1" style="color:rgb(255, 57, 57);">{{info2}}</h4>
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+    </div>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h2>Préstamos actuales</h2>
+        <p>La siguiente tabla muestra la información de los equipos prestados actualmente:</p>
+        {{ tabla_prestamos }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+<!-- <img src="../static/imagenes/images.jpeg"> !-->
+
+{% endblock content %}

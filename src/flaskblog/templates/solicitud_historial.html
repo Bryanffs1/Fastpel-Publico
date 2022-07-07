@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+
+{% if current_user.username == "Administrador" %}
+<h2 class="text-center p-4 my-1" style="color:#fff;">SOLICITAR HISTORIALES</h2>
+<div class="container p-4">
+  <div class="jumbotron">
+    <h5>Llene el campo y selecciona los archivos que deseas enviar al correo ingresado:</h5>
+    <form method="POST">  <!--action="/action_page.php target=_self"-->
+
+      <label for="cdestinatario">Correo electrónico donde se enviaran los archivos:</label>
+      <input type="email" id="cdestinatario" style="width:35%; text-align:center;" name="cdestinatario" placeholder="Correo electrónico..." title="Correo electrónico dende se enviaran los archivos seleccionados" required> <!--required!-->
+      <br>
+      <br>
+      <p>Selecciona los archivos que deseas enviar a tu correo electrónico:</p>
+      <div class="form-check">
+        <label class="form-check-label" for="check1">
+          <input type="checkbox" class="form-check-input" id="check1" name="opcion_1" value="si">Historial de prestamos de equipos</label> <!--checked !-->
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label" for="check2">
+          <input type="checkbox" class="form-check-input" id="check2" name="opcion_2" value="si">Prestamos actuales</label>
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label" for="check3">
+          <input type="checkbox" class="form-check-input" id="check3" name="opcion_3" value="si">Base de datos de los equipos</label>
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label" for="check4">
+          <input type="checkbox" class="form-check-input" id="check4" name="opcion_4" value="si">Base de datos de los monitores</label>
+      </div>
+
+      <!-- <div class="form-check">
+        <label class="form-check-label" for="check5">
+          <input type="checkbox" class="form-check-input" id="check5" name="opcion_5" value="si">Base de datos estudiantes</label>
+      </div> -->
+
+      <div class="form-check">
+        <label class="form-check-label" for="check6">
+          <input type="checkbox" class="form-check-input" id="check6" name="opcion_6" value="si">Historial control de laboratorio</label>
+      </div>
+
+      <div class="form-check">
+        <label class="form-check-label" for="check7">
+          <input type="checkbox" class="form-check-input" id="check7" name="opcion_7" value="si">Base de datos de autorizados del control de laboratorio</label>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">SOLICITAR</button>
+
+    </form>
+    <h3 class="text-center p-4 my-1">{{info}}</h3>
+
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock content %}

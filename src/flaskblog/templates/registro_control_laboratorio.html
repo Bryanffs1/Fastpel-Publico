@@ -1,0 +1,225 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+
+{% if current_user.username == "Administrador" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;">REGISTRO DE ALUMNOS PARA EL ACCESO DEL LABORATORIO</h2>
+  <div class="wrapper fadeInDown">
+    <div class="container p-4">
+      <div class="jumbotron">
+        <div style="background-color:#ffcdd2; color:black; padding:20px;">
+          <h4>Tenga en cuenta los siguientes puntos:</h4>
+          <ul>
+            <li>Ingrese la informacion solicitada para darle autorizacion al acceso del laboratorio.</li>
+            <li>Una vez registrado, se le mostrara el serial del estudiante el cual se pondra en la tarjeta NFC con ayuda del programa "nfctools" y el lector de tarjetas NFC.</li>
+            <li>El serial del estudiante esta en la tabla inferior de esta pagina, en la columna SERIAL.</li>
+            <li>Cada estudiante solo puede tener una tarjeta NFC ya que esta le sirve para el ingreso a cualquier laboratorio que este autorizado.</li>
+            <li>Si el estudiante ya tiene acceso a un laboratorio lo que conlleva a que ya tiene una tarjeta NFC asignada, por lo tanto no necesita actualizar o darle otra tarjeta NFC, solo necesita poner todos los datos requeridos, asignar un laboratorio diferente y programar su horario.</li>
+          </ul>
+        </div>
+        <br>
+        <form method="POST">  <!--action="/action_page.php target=_self"-->
+          <!-- codigo nombre telefono id-->
+          <label for="codes_estu_rc" data-toggle="tooltip" data-placement="right">Código institucional del estudiante:</label>
+          <input type="text"  pattern="-?[0-9]*(\.[0-9]+)?" maxlength="10" minlength="10" id="codes_estu_rc" name="codes_estu_rc" placeholder="Código institucional del estudiante..." title="El codigo del estudiante solo contienen caracteres numéricos" required>
+
+          <label for="nomes_estu_rc" data-toggle="tooltip" data-placement="right">Nombre completo del esudiante:</label>
+          <input type="text" id="nomes_estu_rc" name="nomes_estu_rc" placeholder="Nombre completo del esudiante..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="telestu_rc" data-toggle="tooltip" data-placement="right">Telefono del estudiante:</label>
+          <input type="text"  pattern="-?[0-9]*(\.[0-9]+)?" id="telestu_rc" name="telestu_rc" placeholder="Telefono del estudiante..." title="El telefono solo contienen caracteres numéricos" required>
+
+          <p>Seleccione el laboratorio asignado al estudiante:</p>
+          <div style=" width:100%;">
+
+            <input type="radio" id="Lab1" name="cual_lab" value="Laboratorio 1">
+            <label for="Lab1">Laboratorio 1</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab2" name="cual_lab" value="Laboratorio 2" >
+            <label for="Lab2">Laboratorio 2</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab3" name="cual_lab" value="Laboratorio 3" >
+            <label for="Lab3">Laboratorio 3</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab4" name="cual_lab" value="Laboratorio 4" disabled>
+            <label for="Lab4">Laboratorio 4</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab5" name="cual_lab" value="Laboratorio 5" required disabled>
+            <label for="Lab5">Laboratorio 5</label>
+          </div>
+
+          <br><br>
+          <div class="form-check">
+            <p>Lunes:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="dateinilunes">Fecha inicial:</label>
+            <input type="date" id="dateinilunes" name="dateinilunes">
+            &nbsp;
+            <label for="datefinlunes">Fecha final:</label>
+            <input type="date" id="datefinlunes" name="datefinlunes">
+            &nbsp;
+            <label for="horainilunes">Hora inicial:</label>
+            <input type="time" id='horainilunes' name="horainilunes">
+            &nbsp;
+            <label for="horafinlunes">Hora final:</label>
+            <input type="time" id='horafinlunes' name="horafinlunes"></p>
+          </div>
+
+          <div class="form-check">
+            <p>Martes:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="dateinimartes">Fecha inicial:</label>
+            <input type="date" id="dateinimartes" name="dateinimartes">
+            &nbsp;
+            <label for="datefinmartes">Fecha final:</label>
+            <input type="date" id="datefinmartes" name="datefinmartes">
+            &nbsp;
+            <label for="horainimartes">Hora inicial:</label>
+            <input type="time" id='horainimartes' name="horainimartes">
+            &nbsp;
+            <label for="horafinmartes">Hora final:</label>
+            <input type="time" id='horafinmartes' name="horafinmartes"></p>
+          </div>
+
+          <div class="form-check">
+            <p>Miercoles:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="dateinimiercoles">Fecha inicial:</label>
+            <input type="date" id="dateinimiercoles" name="dateinimiercoles">
+            &nbsp;
+            <label for="datefinmiercoles">Fecha final:</label>
+            <input type="date" id="datefinmiercoles" name="datefinmiercoles">
+            &nbsp;
+            <label for="horainimiercoles">Hora inicial:</label>
+            <input type="time" id='horainimiercoles' name="horainimiercoles">
+            &nbsp;
+            <label for="horafinmiercoles">Hora final:</label>
+            <input type="time" id='horafinmiercoles' name="horafinmiercoles"></p>
+          </div>
+
+          <div class="form-check">
+            <p>Jueves:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="dateinijueves">Fecha inicial:</label>
+            <input type="date" id="dateinijueves" name="dateinijueves">
+            &nbsp;
+            <label for="datefinjueves">Fecha final:</label>
+            <input type="date" id="datefinjueves" name="datefinjueves">
+            &nbsp;
+            <label for="horainijueves">Hora inicial:</label>
+            <input type="time" id='horainijueves' name="horainijueves">
+            &nbsp;
+            <label for="horafinjueves">Hora final:</label>
+            <input type="time" id='horafinjueves' name="horafinjueves"></p>
+          </div>
+
+          <div class="form-check">
+            <p>Viernes:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="dateiniviernes">Fecha inicial:</label>
+            <input type="date" id="dateiniviernes" name="dateiniviernes">
+            &nbsp;
+            <label for="datefinviernes">Fecha final:</label>
+            <input type="date" id="datefinviernes" name="datefinviernes">
+            &nbsp;
+            <label for="horainiviernes">Hora inicial:</label>
+            <input type="time" id='horainiviernes' name="horainiviernes">
+            &nbsp;
+            <label for="horafinviernes">Hora final:</label>
+            <input type="time" id='horafinviernes' name="horafinviernes"></p>
+          </div>
+
+          <div class="form-check">
+            <p>Sabado:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="dateinisabado">Fecha inicial:</label>
+            <input type="date" id="dateinisabado" name="dateinisabado">
+            &nbsp;
+            <label for="datefinsabado">Fecha final:</label>
+            <input type="date" id="datefinsabado" name="datefinsabado">
+            &nbsp;
+            <label for="horainisabado">Hora inicial:</label>
+            <input type="time" id='horainisabado' name="horainisabado">
+            &nbsp;
+            <label for="horafinsabado">Hora final:</label>
+            <input type="time" id='horafinsabado' name="horafinsabado"></p>
+          </div>
+
+          <div class="form-check">
+            <p>Domingo:
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="dateinidomingo">Fecha inicial:</label>
+            <input type="date" id="dateinidomingo" name="dateinidomingo">
+            &nbsp;
+            <label for="datefindomingo">Fecha final:</label>
+            <input type="date" id="datefindomingo" name="datefindomingo">
+            &nbsp;
+            <label for="horainidomingo">Hora inicial:</label>
+            <input type="time" id='horainidomingo' name="horainidomingo">
+            &nbsp;
+            <label for="horafindomingo">Hora final:</label>
+            <input type="time" id='horafindomingo' name="horafindomingo"></p>
+          </div>
+          <br>
+
+          <input type="submit" value="Guardar">
+        </form>
+        <h3 class="text-center p-4 my-1">{{info}}</h3>
+        <script>
+          $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Alumnos AUTORIZADOS actuales</h2>
+      <p>La siguiente tabla muestra la información de los Alumnos AUTORIZADOS actuales:</p>
+      {{ tabla_estudiantes_autorizado }}
+    </div>
+  </div>
+
+{% endif %}
+{% endblock content %}

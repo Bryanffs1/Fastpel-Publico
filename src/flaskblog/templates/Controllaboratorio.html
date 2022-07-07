@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+
+<h2 class="text-center p-4 my-1" style="color:#fff;"> CONTROL DE LABORATORIO </h2>
+
+<div class="container p-4">
+  <div class="jumbotron">
+    <form method="POST">
+
+      <label for="cod_serial_id">Serial:</label>
+      <input type="text" id="cod_serial_id" pattern="[A-Za-z0-9\s]+" name="cod_serial_html" placeholder="Serial..." required>
+
+      <p>Laboratorio:</p>
+      <div style=" width:100%;">
+
+        <input type="radio" id="Lab1" name="cual_lab_ras" value="Laboratorio 1">
+        <label for="Lab1">Laboratorio 1</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="Lab2" name="cual_lab_ras" value="Laboratorio 2" >
+        <label for="Lab2">Laboratorio 2</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="Lab3" name="cual_lab_ras" value="Laboratorio 3" >
+        <label for="Lab3">Laboratorio 3</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="Lab4" name="cual_lab_ras" value="Laboratorio 4" >
+        <label for="Lab4">Laboratorio 4</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="Lab5" name="cual_lab_ras" value="Laboratorio 5" required >
+        <label for="Lab5">Laboratorio 5</label>
+      </div>
+
+      <input type="submit" value="Guardar" id="butenviar">
+    </form>
+    <h3 class="text-center p-4 my-1">{{info}}</h3>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+  </div>
+
+{% endblock content %}

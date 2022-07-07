@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+{% if current_user.username == "Administrador" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;">REGISTRO DE EQUIPOS EN BASE DE DATOS</h2>
+  <div class="wrapper fadeInDown">
+    <div class="container p-4">
+      <div class="jumbotron">
+        <form method="POST">  <!--action="/action_page.php target=_self"-->
+          <!-- ja	  NOMBRE CENTRO COSTOS    	UBICACIĂ“N     	ACTIVO NUEVO     	EQUIPO	      MARCA     	MODELO     	SERIE     	DESCRIPCION -->
+          <label for="dnomE" data-toggle="tooltip" data-placement="right">Nombre del equipo:</label>
+          <input type="text" id="dnomE" name="dnomE" placeholder="Nombre del equipo..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros."required>
+
+          <label for="MarcE" data-toggle="tooltip" data-placement="right">Marca del equipo:</label>
+          <input type="text" id="MarcE" name="MarcE" placeholder="Marca del equipo..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="modeloE" data-toggle="tooltip" data-placement="right">Modelo del equipo:</label>
+          <input type="text" id="modeloE" name="modeloE" placeholder="Modelo del equipo..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="act_now" data-toggle="tooltip" data-placement="right">Activo nuevo del equipo:</label>
+          <input type="text" id="act_now" name="act_now" placeholder="Activo nuevo del equipo..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="dserie" data-toggle="tooltip" data-placement="right">Serie del equipo:</label>
+          <input type="text" id="dserie" name="dserie" placeholder="Serie del equipo..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="ubiE" data-toggle="tooltip" data-placement="right">Ubicacíon del equipo:</label>
+          <input type="text" id="ubiE" name="ubiE" placeholder="Ubicacíon del equipo..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="ncc" data-toggle="tooltip" data-placement="right">Nombre de centro de costos:</label>
+          <input type="text" id="ncc" name="ncc" placeholder="Nombre de centro de costos..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="dde" data-toggle="tooltip" data-placement="right">Descripción del equipo:</label>
+          <input type="text" id="dde" name="dde" placeholder="Descripción del equipo..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <input type="submit" value="Guardar">
+        </form>
+        <h3 class="text-center p-4 my-1">{{info}}</h3>
+        <script>
+          $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Equipos actuales</h2>
+      <p>La siguiente tabla muestra la información de los Equipos actuales:</p>
+      {{ tabla_equipos }}
+    </div>
+  </div>
+
+{% endif %}
+{% endblock content %}

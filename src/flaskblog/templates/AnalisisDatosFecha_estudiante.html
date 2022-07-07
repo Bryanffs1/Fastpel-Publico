@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- <h1 class="text-center p-1 my-1"> DEVOLUCIONES <h1> -->
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+{% if current_user.username == "Administrador" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;"> Analisis de Datos de Estudiantes por Fecha </h2>
+
+  <div class="container p-4">
+    <div class="jumbotron p-4">
+      <a class="btn btn-success" style="background-color:Dodgerblue; border-color:Dodgerblue; color:white" href="{{ url_for('AnalisisDatos')}}">Ir Atras</a>
+      <h3>Para buscar los estudiantes que mas solicitudes realizaron en un rango de fechas, selecciona la fecha inicial, la fecha final y la cantidad de datos que desea ver:</h3>
+      {{ tabla_estu_mas_prestado_fecha }}
+
+      <form method="POST">
+
+        <label for="datequini">Fecha inicial de busqueda:</label><br>
+        <input type="date" id="datequini" name="datequihtmlini" required>
+        <br><br>
+        <label for="datequifin">Fecha final de busqueda:</label><br>
+        <input type="date" id="datequifin" name="datequihtmlfin" required>
+
+        <br><br>
+
+        <p>Cantidad de datos que desea ver:</p>
+
+        <div class="card" style="width:4%; float:left;"></div>
+        <div class="form-group" style="width:20%; float:left;">
+          <label class="form-check-label" for="check1">
+            <input type="radio" class="form-check-input" id="check1" name="opciondatos" value="5" required >5 Datos</label> <!--checked !-->
+        </div>
+        <div class="card" style="width:2%; float:left;"></div>
+        <div class="form-group" style="width:20%; float:left;">
+          <label class="form-check-label" for="check2">
+            <input type="radio" class="form-check-input" id="check2" name="opciondatos" value="10">10 Datos</label>
+        </div>
+        <div class="card" style="width:2%; float:left;"></div>
+        <div class="form-group" style="width:20%; float:left;">
+          <label class="form-check-label" for="check3">
+            <input type="radio" class="form-check-input" id="check3" name="opciondatos" value="20">20 Datos</label>
+        </div>
+        <div class="card" style="width:2%; float:left;"></div>
+        <div class="form-group" style="width:20%; float:left;">
+          <label class="form-check-label" for="check4">
+            <input type="radio" class="form-check-input" id="check4" name="opciondatos" value="Todos">Todos los datos</label>
+        </div>
+        <br>
+        <input type="submit" value="BUSCAR">
+      </form>
+      <h3 class="text-center p-4 my-1">{{info}}</h3>
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+
+    </div>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h2>Préstamos actuales</h2>
+        <p>La siguiente tabla muestra la información de los equipos prestados actualmente:</p>
+        {{ tabla_prestamos }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+<!-- <img src="../static/imagenes/images.jpeg"> !-->
+
+{% endblock content %}

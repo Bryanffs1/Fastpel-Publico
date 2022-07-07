@@ -1,0 +1,114 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<!-- <h1 class="text-center p-1 my-1"> DEVOLUCIONES <h1> -->
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+{% if current_user.username == "Administrador" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;"> Analisis de Datos </h2>
+
+  <div class="container p-4">
+    <div class="jumbotron p-4">
+
+      <h3>Top 10 equipos mas prestado desde la fecha {{ fechamin_historial }} hasta hoy:</h3>
+      {{ tabla_eq_mas_prestado }}
+
+      <div class="jumbotron p-1">
+        <h3>Para buscar equipos en un rango de fecha has click en el boton "Analizar Datos con Fecha (Equipos)":</h3>
+        <a class="btn btn-success btn-block" href="{{ url_for('AnalisisDatosFecha')}}">Analizar Datos con Fecha (Equipos)</a>
+      </div>
+
+      <h3>Equipo menos prestado desde la fecha {{ fechamin_historial }} hasta hoy:</h3>
+      {{ tabla_eq_menos_prestado }}
+
+      <form method="POST">  <!--action="/action_page.php target=_self"-->
+
+        <label for="codequi">Código del equipo para saber cuantas veces ha sido prestado desde el {{ fechamin_historial }}:</label>
+        <input type="text" id="codequi" name="codequihtml" pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." placeholder="Código del equipo..." >
+
+        <input type="submit" value="BUSCAR">
+      </form>
+      <h3 class="text-center p-4 my-1">{{info}}</h3>
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+    </div>
+
+    <div class="jumbotron p-4">
+      <h3>Top 10 estudiantes que mas solicitudes de equipos tuvo desde la fecha {{ fechamin_historial }} hasta hoy:</h3>
+      {{ tabla_es_mas_prestado }}
+
+      <form method="POST">  <!--action="/action_page.php target=_self"-->
+
+        <label for="codestu">Código del estudiante para saber cuantas solicitudes ha realizado desde el {{ fechamin_historial }}:</label>
+        <input type="text" pattern="-?[0-9]*(\.[0-9]+)?" maxlength="10" minlength="10" id="codestu" name="codestuhtml" placeholder="Código del estudiante..." title="Los códigos de estudiantes solo contienen caracteres numéricos">
+
+        <input type="submit" value="BUSCAR">
+      </form>
+      <h3 class="text-center p-4 my-1">{{info2}}</h3>
+      <script>
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+      </script>
+
+      <div class="jumbotron p-1">
+        <h3>Para buscar equipos en un rango de fecha has click en el boton "Analizar Datos con Fecha (Estudiantes)":</h3>
+        <a class="btn btn-success btn-block" href="{{ url_for('AnalisisDatosFecha_estudiante')}}">Analizar Datos con Fecha (Estudiantes)</a>
+      </div>
+    </div>
+
+    <div class="jumbotron p-4">
+      <h3>Prestamos totales finalizados desde la fecha {{ fechamin_historial }} hasta hoy:</h3>
+      <h2 >{{ Prest_fin_total }}</h2>
+
+      <h3>Prestamos totales actuales desde la fecha {{ fechamin_historial }} hasta hoy:</h3>
+      <h2 >{{ datos_prestamos_actual }}</h2>
+    </div>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h2>Préstamos actuales</h2>
+        <p>La siguiente tabla muestra la información de los equipos prestados actualmente:</p>
+        {{ tabla_prestamos }}
+      </div>
+    </div>
+  </div>
+{% endif %}
+<!-- <img src="../static/imagenes/images.jpeg"> !-->
+
+{% endblock content %}

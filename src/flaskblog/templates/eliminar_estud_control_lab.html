@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+
+{% if current_user.username == "Administrador" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;">ELIMINAR ESTUDIANTE DEL CONTROL DE ACCESO AL LABORATORIO</h2>
+  <div class="wrapper fadeInDown">
+    <div class="container p-4">
+      <div class="jumbotron">
+        <form method="POST">  <!--action="/action_page.php target=_self"-->
+
+          <label for="eliestu_control" data-toggle="tooltip" data-placement="right" title="Si no sabe el código del estudiante, abajo de esta página encontrara una tabla con los estudiantes autorizados actuales!">Código del estudiante a eliminar del control de acceso al laboratorio:</label>
+          <input type="text" pattern="-?[0-9]*(\.[0-9]+)?" maxlength="10" minlength="10" id="eliestu_control" name="eliestu_control" placeholder="Código del estudiante a eliminar..." title="El codigo del estudiante solo contienen caracteres numéricos" required>
+
+          <p>Seleccione el laboratorio del estudiante a eliminar:</p>
+          <div style=" width:100%;">
+
+            <input type="radio" id="Lab1" name="cual_lab" value="Laboratorio 1">
+            <label for="Lab1">Laboratorio 1</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab2" name="cual_lab" value="Laboratorio 2" >
+            <label for="Lab2">Laboratorio 2</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab3" name="cual_lab" value="Laboratorio 3" >
+            <label for="Lab3">Laboratorio 3</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab4" name="cual_lab" value="Laboratorio 4" >
+            <label for="Lab4">Laboratorio 4</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" id="Lab5" name="cual_lab" value="Laboratorio 5" required >
+            <label for="Lab5">Laboratorio 5</label>
+          </div>
+          <br>
+
+          <input type="submit" value="Eliminar">
+        </form>
+        <h3 class="text-center p-4 my-1">{{info}}</h3>
+        <script>
+          $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+          });
+        </script>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="jumbotron">
+        <h2>Alumnos AUTORIZADOS actuales</h2>
+        <p>La siguiente tabla muestra la información de los Alumnos AUTORIZADOS actuales:</p>
+        {{ tabla_estudiantes_autorizado }}
+      </div>
+    </div>
+  </div>
+
+{% endif %}
+
+{% endblock content %}

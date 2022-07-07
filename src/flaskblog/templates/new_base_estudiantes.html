@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+
+{% if current_user.username == "Administrador" %}
+<h2 class="text-center p-4 my-1" style="color:#fff;">ACTUALIZAR BASE DE DATOS ESTUDIANTES</h2>
+
+<div class="container">
+  <div class="jumbotron">
+    <h2>Guia para base de datos estudiantes</h2>
+    <p>El archivo debe estar en formato CSV UTF-8 (delimitado por comas), compruebe que el archivo esta delimitado con comas PORFAVOR.</p>
+    <p>La siguiente tabla es una guia la cual se debe cumplir para subir la nueva base de estudiantes:</p>
+
+    <table border="2px">
+      <tr>
+        <th>CODIGO</th>
+        <th>NOMBRE</th>
+        <th>CEDULA</th>
+        <th>CORREO</th>
+      </tr>
+
+      <tr>
+        <td> 2420071111   </td>
+        <td> Pepe Alfonzo Gonzales Lara   </td>
+        <td> 123456789   </td>
+        <td> 2420071111@estudiantesunibague.edu.co   </td>
+      </tr>
+
+      <tr>
+        <td> ... </td>
+        <td> ... </td>
+        <td> ... </td>
+        <td> ... </td>
+      </tr>
+
+      <tr>
+        <td> ... </td>
+        <td> ... </td>
+        <td> ... </td>
+        <td> ... </td>
+      </tr>
+
+    </table>
+  </div>
+</div>
+
+<div class="container p-4">
+  <div class="jumbotron">
+    <form method="POST"enctype="multipart/form-data">  <!--action="/action_page.php target=_self"  action="upload.php" -->
+
+      <label for="cadestinatario">Correo electrónico donde se enviara el archivo anterior:</label>
+      <input type="email" id="cadestinatario" style="width:35%; text-align:center;" name="cadestinatario" placeholder="Correo electrónico..." title="Correo electrónico dende se enviaran los archivos seleccionados" required> <!--required!-->
+      <br>
+      <br>
+      <label for="fileSelect" data-toggle="tooltip" data-placement="right" title="Solo sube archivos de formato .csv">Cargue aqui la base nueva de estudiantes:</label><br>
+      <input id="fileSelect" type="file" name="archivo" accept=".csv" required>
+
+      <input type="submit" value="Enviar">
+    </form>
+    <h3 class="text-center p-4 my-1">{{info}}</h3>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+  </div>
+</div>
+
+{% endif %}
+
+
+{% endblock content %}

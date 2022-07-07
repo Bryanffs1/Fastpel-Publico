@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  /* div {
+    border-radius: 15px;
+    background-color: #f2f2f2;
+    padding: 25px;
+  } */
+</style>
+
+{% if current_user.username == "Administrador" %}
+  <h2 class="text-center p-4 my-1" style="color:#fff;">REGISTRO DE MONITORES EN LA BASE DE DATOS</h2>
+  <div class="wrapper fadeInDown">
+    <div class="container p-4">
+      <div class="jumbotron">
+        <form method="POST">  <!--action="/action_page.php target=_self"-->
+          <!-- codigo nombre telefono id-->
+          <label for="codes" data-toggle="tooltip" data-placement="right">Código institucional del estudiante:</label>
+          <input type="text"  pattern="-?[0-9]*(\.[0-9]+)?" maxlength="10" minlength="10" id="codes" name="codes" placeholder="Código institucional del estudiante..." title="El codigo del estudiante solo contienen caracteres numéricos" required>
+
+          <label for="nomes" data-toggle="tooltip" data-placement="right">Nombre completo del esudiante:</label>
+          <input type="text" id="nomes" name="nomes" placeholder="Nombre completo del esudiante..." pattern="[A-Za-z0-9\s]+" title="Solo se admiten letras y numeros." required>
+
+          <label for="teles" data-toggle="tooltip" data-placement="right">Numero de telefono del estudiante:</label>
+          <input type="text"  pattern="-?[0-9]*(\.[0-9]+)?" id="teles" name="teles" placeholder="Numero de telefono del estudiante..." title="El numero telefonico solo contienen caracteres numéricos" required>
+
+          <label for="ides" data-toggle="tooltip" data-placement="right" title="Aquí pone una contraseña de 4 dígitos numericos la cual el monitor usará para poder realizar los préstamos y devoluciones de los equipos del laboratorio.">ID:</label>
+          <input type="text"  pattern="-?[0-9]*(\.[0-9]+)?" maxlength="4" minlength="4" id="ides" name="ides" placeholder="ID..." title="El ID solo contienen caracteres numéricos" required>
+
+          <input type="submit" value="Guardar">
+        </form>
+        <h3 class="text-center p-4 my-1">{{info}}</h3>
+        <script>
+          $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Monitores actuales</h2>
+      <p>La siguiente tabla muestra la información de los Monitores actuales:</p>
+      {{ tabla_monitores }}
+    </div>
+  </div>
+
+{% endif %}
+{% endblock content %}
