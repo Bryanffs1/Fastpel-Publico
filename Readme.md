@@ -159,6 +159,7 @@ host='su_IP'
 cambia su_IP por su IP (sin quitar las comillas, esto se realizara una unica vez).
 
 **¿Como saber que IP tengo?**
+
 En el terminal se pone "ifconfig" y buscas se IP.
 Es necesario que tenga instalada net-tools, en el caso que no se tenga, se puede instalar con el siguiente comando:
 ```sh 
