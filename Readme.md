@@ -237,7 +237,7 @@ puerto_servidor = 5050
 ```
 -Configurar la ruta del control de laboratorio de FastPEL en el script **runapp.py** para selenium:
 ```sh
-driver.get('http://fastpel.unibague.edu.co:8080/Controllaboratorio') 
+codigo
 ```
 > **Con esta configuración el software ya está correctamente configurado en la raspberry pi.**
 
