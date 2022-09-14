@@ -1,60 +1,171 @@
-# FASTPEL
+# Sistema de gestión para el préstamo de equipos y control de acceso del laboratorio de ingeniería electrónica (FastPEl)
 
-Un software con login e interfaz en html que permite realizar prestamos de equipos en el laboratorio de ingenieria electronica en la Universidad de Ibagué por medio de codigos de barras, tambien brinda asistencia para solicitar un laboratorio en horas extras.
+En el presente repocitorio tuvo como propósito desarrollar un sistema intuitivo que facilitara los procesos de préstamos y devolución de equipos en el laboratorio principal de ingeniería electrónica y el control de acceso con tecnología Near Field Communication (NFC) en el laboratorio de software especializado de la Universidad de Ibagué. 
+Su elaboración consto de dos partes, la construcción de un software programado en su mayoría en lenguaje de programación en Python y lenguaje de marcado de hipertexto HTML, el cual se apoyó con CSS y JavaScript; y un hardware que lo constituye una raspberry pi 4, un circuito y componentes electrónicos el cual se complementaron con el software para satisfacer los objetivos planteados y las necesidades de los usuarios que dieron uso a este.
 
 Los contenidos de este repositorio:
-  - Codigos fuentes
-  - Scripts de desarrollo Python
+  - Códigos fuentes
+  - Datasheets
   - Base de datos
+  - Requisitos del hardware y software
+  - Como instalar y ejecutar el sistema
+  - Video tutoriales
 
-## Elementos de hardware
-  - Pistola lectora de codigos de barras
+## Requisitos del Hardware
+### Servidor
+Los requisitos necesarios para el correcto funcionamiento del servidor constan de:
 
-## Requisitos de Software
+- Una CPU con sistema operativo de Ubuntu con Python 3.9.12 y con acceso a internet
+- Librerías necesarias
+- 3 Gigabyte de RAM mínimo
+- 160Gb de memoria del disco duro
+
+###Control de acceso
+Los requisitos necesarios para el correcto funcionamiento del control de acceso al laboratorio de ingeniería electrónica constan de:
+
+- Una Raspberry pi 4 modelo B 4GB RAM con sistema operativo recomendado de Raspberry Pi OS (32-bit) con acceso a internet
+- Fuente de alimentación USB-C 5V 3A con interruptor de encendido/apagado (para Raspberry pi 4 modelo B)
+- Memoria SD samsung PRO Endurance 32GB
+- Un módulo NFC RFID-RC522 13.56MHz
+- Cerradura eléctrica para puerta marca UHPPOTE
+- Fuente de alimentación de 12V dc marca UHPPOTE
+- Caja en acrilico con su stiker
+- Caja metalica
+- Tornilleria para fijar componentes al acrilico y para fijar el acrilico a la pared
+- Un Relé de 12 voltios
+- Ocho borneras
+- Cuatro transistores 2n2222A
+- Cuatro Resistencias para configuracion en saturacion de los transistores
+- Un diodo rectificador
+- Un buzzer de 12v dc
+- Dos leds de 12v dc (tipo pilotos)
+- Un led de 3.3v dc
+- Cableado
+
+###Usuario
+Los requisitos necesarios para el correcto funcionamiento de FASTPEL y el control de acceso para el usuario constan de:
+
+  - Un computador con acceso a internet (mejor si es con OS Windows )
+  - Pistola lectora de códigos de barras
+  - Dispositivo inteligente ACR122U NFC RFID 13.56Mhz de escritura y lectura de tarjetas NFC marca ETEKJOY
+  - Tarjetas NFC 13.56MHz para 1K S50 MF1 mi-fare
+
+
+## Requisitos del Software
   - Ubuntu
-  - Python 2.7 
+  - Python 3.9.12
   - Bases de datos
-  
-### Como se instalar el software
-Para el correcto funcionamiento, es necesario realizar unos pasos previos antes de iniciar la aplicacion (esto solo se realizara una unica vez):
+  - Librerias necesarias
 
--Instalar multiles librerias (esto se realizara una unica vez):
+## Como instalar el software
+###Servidor
+Para el correcto funcionamiento de FastPEL en el servidor, es necesario realizar unos pasos previos antes de iniciar la aplicacion:
+
+**-Instalar las librerias necesarias:**
+
+- PIP
+Su instalación en terminal:
 ```sh
-Flask
-flask_sqlalchemy
-flask-bcrypt
-Flask-Mail
-flask-login
-pil
-request
-flashplugin
-pandas
-iPython
-Flask-WTF
-WTForms
-itsdangerous
+sudo apt install python3-pip
 ```
-Se instala con la siguiente linea usando *pip*
+- Flask
+Su instalación en terminal:
 ```sh
-pip install "nombre de la libreria"
+pip install Flask 
 ```
--Poner el correo electronico (gmail) y contraseña del administrador ya que es necesario para el correcto funcionamiento de algunas funciones, su contraseña sera encriptada y no se hara manejo del correo sin su autorizacion, por ende no se tiene que preocupar.
-Para hacer esta configuracion, entre a la carpeta flaskblog luego, abra el archivo "__ init__.py" y cambie las variables (sin quitar las comillas):
+Si genera error con itsdangerous al ejecutar el software, degrada itsdangerous y se solucionara:
+```sh
+pip install itsdangerous==2.0.1
+```
+- flask_sqlalchemy
+Su instalación en terminal:
+```sh
+pip install Flask-SQLAlchemy
+```
+- flask_bcrypt
+Su instalación en terminal:
+```sh
+pip install Flask-Bcrypt
+```
+- _cffi_backend
+Su instalación en terminal:
+```sh
+pip install cffi
+```
+- flask_login
+Su instalación en terminal:
+```sh
+pip install Flask-Login
+```
+- flask_mail
+Su instalación en terminal:
+```sh
+pip install Flask-Mail
+```
+- flask_wtf
+Su instalación en terminal:
+```sh
+pip install Flask-WTF
+```
+- email_validator
+Su instalación en terminal:
+```sh
+pip install email-validator
+```
+- Pandas
+Su instalación en terminal:
+```sh
+pip install pandas
+```
+- IPython
+Su instalación en terminal:
+```sh
+pip install IPython
+```
+- PIL
+Su instalación en terminal:
+```sh
+pip install Pillow
+```
+Si genera error con la librería PIL al ejecutar el software, instalar así:
+```sh
+pip install -U pillow
+```
+- Sockets (normalmente ya viene por defecto en el sistema)
+Su instalación en terminal:
+```sh
+pip install sockets
+```
+- key-generator
+Su instalación en terminal:
+```sh
+pip install key-generator
+```
+
+-Poner el correo electrónico (Gmail) y contraseña del administrador ya que es necesario para el correcto funcionamiento de algunas funciones, su contraseña será encriptada y no se hará manejo del correo sin su autorización, por ende, no se tiene que preocupar.
+Para hacer esta configuración, entre a la carpeta flaskblog luego, abra el archivo "**__ init__.py**" y cambie las variables (sin quitar las comillas):
 ```sh
 'correo_del_administrador'
 'contraseña_del_correo_del_administrador' 
 ```
-Guarde y salga, (esto se realizara una unica vez).
+Guarde y salga.
 
--Da permisos a tu cuenta de gmail que pusiste en el "correo_del_administrador", para esto abre tu cuenta gmail y ve a "administra tu cuenta de google" luego le das en "Seguridad" despues vas en "Acceso de apps menos seguras" le das en "Activar el acceso" por ultimo le das si a "Permitir el acceso de apps menos seguras" (esto se realizara una unica vez)
+-Se le da permisos a su cuenta de Gmail que pusiste en el "correo_del_administrador", para esto abre tu cuenta Gmail y ve a "Gestionar tu cuenta de Google" luego le das en "Seguridad" después vas en "Acceso de aplicaciones poco seguras" le das en "Activar el acceso" por último le das si a "Permitir el acceso de apps menos seguras" (esto se realizara la primera vez y cuando se requiera)
 
--Luego tiene que poner su IP, para ello entra al archivo "run .py" y donde dice 
+-Luego se tiene que poner su IP, para ello entra al archivo "run .py" y donde dice:
 ```sh 
 host='su_IP' 
 ```
-cambia su_IP por tu IP (sin quitar las comillas, esto se realizara una unica vez).
+cambia su_IP por su IP (sin quitar las comillas, esto se realizara una unica vez).
 
--Continiamos creando nuesta base de datos de usuarios, para esto abrimos la terminal y vamos a la carpeta donde esta el archivo "run .py", habrimos python y desde ahi y ejecutamos las siguintes lineas (esto se realizara una unica vez):
+**¿Como saber que IP tengo?**
+En el terminal se pone "ifconfig" y buscas se IP.
+Es necesario que tenga instalada net-tools, en el caso que no se tenga, se puede instalar con el siguiente comando:
+```sh 
+sudo apt install net-tools
+```
+
+-Continuamos creando nuestra base de datos de usuarios, para esto abrimos la terminal y vamos a la carpeta donde está el archivo "run .py", abrimos python3 y desde ahí y ejecutamos las siguientes líneas (esto se realizará una única vez):
 
 ```sh 
 from flaskblog import db
@@ -63,17 +174,122 @@ db.create_all()
 cerramos python con:
 ```sh 
 exit()
-```	
--Finalmente se debe crear dos cuentas en Fastpel, una del administrador y otra de los monitores para esto corremos el software y vamos a "Registrate", ponemos Administrador como nombre (obligatorio) luego ingresa un email y una contraseña (no es la contraseña del email, es una nueva contraseña para la cuenta de software); para monitores hacemos lo mismos pasos anteriores con la diferencia de que el nombre sera Monitores (obligatorio, esto se realizara una unica vez)
+```
+-Luego se debe crear dos cuentas en FastPEL, una del administrador y otra de los monitores para esto ejecutamos el software y vamos a "Regístrate", ponemos como nombre ***Administrador*** (obligatorio) luego ingresa un email y una contraseña (no es la contraseña del email, es una nueva contraseña para la cuenta de software); para monitores hacemos lo mismos pasos anteriores con la diferencia de que el nombre será ***Monitores*** (obligatorio, esto se realizará una única vez)
 
--El software ya esta configurado completamente.
+-Finalmente se debe poner la IP y puerto de la(s) raspberry(s) pi del control de acceso en las funciones de ***Controlmanuallaboratorio*** y ***Controllaboratorio*** que se encuentan en el archivo "**routes.py**"
+```sh
+#--------------------------- IP y Puerto de las diferentes raspberrys ------------------------
+ ip_cliente_manual = 'IP'   
+ puerto_cliente_manual = 5050
+```
+```sh
+#--------------------------- IP y Puerto de las diferentes raspberrys ------------------------
+ip_cliente = 'IP'
+puerto_cliente = 5050
+```
+> **Con esta configuración el software ya está correctamente configurado en el servidor.**
 
-### Como se corre el software
-Para correr nuestro software abrimos la terminal y vamos a la carpeta donde esta el archivo "run .py" y ejecutamos la siguiente linea (esto se realizara cada vez que se corra el software).:
-```sh 
-sudo python run.py
-```	
-### Funciones de FastPEL
+###Control de acceso
+**-Instalar las librerias necesarias en la raspberry pi:**
+
+- Selenium version 4.1.3
+Su instalación en terminal:
+```sh
+pip install selenium
+```
+- Sockets (normalmente ya viene por defecto en el sistema)
+Su instalación en terminal:
+```sh
+pip install sockets
+```
+- RPi.GPIO
+Su instalación en terminal:
+```sh
+pip instalar RPi.GPIO
+```
+- mfrc522
+Su instalación en terminal:
+```sh
+pip instalar mfrc522
+```
+
+#-Modificar la libreria mfrc522 el script **SimpleMFRC522.py** en:
+```sh
+  codigo
+```
+por
+```sh
+ codigo
+```
+-Activar el SPI de la raspberry pi
+
+-Instalar el driver de chromium para selenium en la ruta "/usr/lib/chromium-browser/chromedriver", se instala asi:
+```sh
+Sudo apt-get install chromium-chromedriver xvfb
+```
+
+-Para configurar la raspberry pi del control de acceso, se deben copiar la carpeta  **run**  en el escritorio de la raspberry pi, luego se  configura la ip de la raspberry pi en el script de **runserver.py**
+```sh
+ip_servidor = 'IP' 
+puerto_servidor = 5050 
+```
+-Configurar la ruta del control de laboratorio de FastPEL en el script **runapp.py** para selenium:
+```sh
+driver.get('http://fastpel.unibague.edu.co:8080/Controllaboratorio') 
+```
+> **Con esta configuración el software ya está correctamente configurado en la raspberry pi.**
+
+###Usuario
+
+> **Con esta configuración el software ya está correctamente configurado en el computador del usuario.**
+
+## Como ejecutar el software
+### En el servidor
+Para ejecutar el software en el servidor, se tiene que ingresar al servidor por ssh:
+```sh
+ssh us@xxx.xx.xx.xx
+```
+Luego se digita su contraseña, una vez ingresamos al servidor, creamos una nueva ventana de la terminal asi:
+```sh
+screen -S runfastpel
+```
+luego en la nueva ventana se ingresa en el directorio donde esta el archivo  **runfastpel.sh** y se ejecuta asi:
+```sh
+Sh rrunffastpel.sh
+```
+Finalmente salimos de esta ventana precionando los comando ***CTRL+a+d*** a la misma vez, luego salimos de la conexion ssh con **exit**.
+
+### En la raspberry pi
+Para ejecutar los script del control de acceso automaticamente al encender la raspberry, se crea un archivo en el directorio siguiente asi:
+```sh
+sudo nano codigo
+```
+Luego se escribe lo siguiente y se guarda con CTRL+o (Para eliminar desde la ubicación: sudo rm fastpelrun.desktop ):
+```sh
+[Desktop Entry]
+Name=PiFastpelRun
+Exec=codigo
+```
+Luego se escribe el run.sh con un delay al principio para que carge el sistema al prender y funcione correctamente, este archivo se crea en la carpeta **run**:
+```sh
+sleep 55
+#!/bin/sh
+
+codigo
+
+```
+Se dan permisos al run.sh, para ello se va por la terminal al sitio donde está el archivo (carpeta run) y se escribe :
+```sh
+chmod 777 run.sh
+```
+Debe quedar en otro color si se ve con "ls" en la terminal.
+
+Despues se agrega el archivo run.sh a las aplicaciones de inicio, para ello vamos a aplicaciones y búscanos inicio, luego abrimos preferencias de las aplicaciones al inicio, buscamos y añadimos nuestra aplicación (nuestro archivo run.sh).
+
+Finalmente se reinicia y automaticamente luego de unos minutos, se ejecuta automaticamente el sistema de control de acceso.
+
+## Funciones de FastPEL
 - Registro de usuario nuevo
 - Restablecer la contraceña de un usuario
 - Modificar datos de un usuario
@@ -83,60 +299,6 @@ sudo python run.py
 - Devolucion (administador y monitores)
 - Solicitar equipo (administador y monitores)
 - Laboratorios
-###  Prestamo
-En la opcion de *Prestamo* se solicita el codigo de barras del carnet del estudiante y del equipo a solicitar luego, el software busca la informacion de estos codigos en la base de datos de los estudiantes y de los equipos de laboratorio respectivamente:
-```sh
-datos_estudiantes = pd.read_csv('Estudiantes v2.csv')
-self.alumno = datos_estudiantes.loc[(datos_estudiantes)['CODIGO'] == codigo]
-    
-datos_equipos = pd.read_csv('Base equipos v2.csv')
-self.equipo = datos_equipos.loc[(datos_equipos)['ACTIVO NUEVO'] == codigo]
-```
-Finalmente se guarda la informacion del prestamo en una base de datos de los prestamos actuales y otra con el historial de prestamos:
-```sh
-informacion_con_estado.reset_index(drop = True).to_csv('Historial v2.csv',header=False, index=False, mode='a')
-
-informacion_sin_fecha.reset_index(drop = True).to_csv('Prestamos v2.csv',header=False, index=False, mode='a')
-```
-
-###  Devolucion
-En la opcion de *Devolucion* se solicita el codigo de barras del equipo a devolver luego, el software busca la informacion del codigo en la base de datos de los prestamos actuales:
-```sh
-datos_prestamos=pd.read_csv('Prestamos v2.csv')
-equipo_en_prestamo=datos_prestamos.loc[(datos_prestamos)['ACTIVO NUEVO']==equipo]
-```
-Finalmente se elimina la informacion del registro en la base de datos de los prestamos actuales y en la base de de datos del historial queda regisdtrada la entrega del equipo:
-```sh
-informacion_con_estado.reset_index(drop = True).to_csv('Historial v2.csv',header=False, index=False, mode='a')
-```
-
-###  Solicitar equipo
-En la opcion de *Solicitar equipo* se solicita el codigo de barras del equipo a solicitar y automaticamente el software busca la informacion necesaria de la persona en la base de datos de prestamos v2 para enviar un correo electronico, finalmente el software redacta y envia el correo electronico:
-```sh
-destinatario = direc_correo.item()
-msg = Message('Devolucion urgente del equipo de laboratorio',
-sender='noreply@demo.com',
-recipients=[destinatario])
-
-eq=equipo_prestado['EQUIPO']
-eq = eq.item()
-msg.body = "Cordial saludo estimado alumno, se le solicita la DEVOLUCION INMEDIATA del equipo "+ str(eq)+ " codigo: "+ str(codg) +"."
-mail.send(msg)
-```
-
-###  Laboratorios
-En la opcion de *Laboratorios* trata de facilitar la solicitud de laboratorios en horario extra, el estudiante tiene que registrarse e ingresar al software, seleccionar un laboratorio de tres que se pueden solicitar, luego tiene que llenar un formulario con la información necesaria, esta información queda guardada en una bases de datos y se muestra los estudiantes registrados en una tabla para saber el cupo disponible, pero si el laboratorio ya está con el cupo lleno, el estudiante puede registrase en otro laboratorio, si se alcanza el cupo limite del respectivo laboratorio, el software automáticamente envía un correo electrónico a la primera persona que se registró con toda la información de los estudiantes registrados, estos registros deben hacerse en los horarios establecidos (6am - 11 am), luego de esta hora, los registros no se podrán realizar debido que el software cierra esta opción y la base de datos creada se reinicia cada día.
-
-###  NUEVO POST
-Esta opción sirve para informar a estudiantes de avisos o eventos de los laboratorios mediante posts generados por el administrador o monitores, estos posts se pueden editar o eliminar en su defecto. 
-
-###  RESTABLECER CONTRASEÑA
- El software consta de esta la opción restablecer una contraseña de un usuario, mediante el envío de un correo electrónico el cual tiene un link para restablecer la contraseña.
- 
-###  CUENTA
- El usuario tiene la opción de modificar el email y contraseña (las cuales están cifradas para una mayor seguridad) como también una foto asignada por defecto a los usuarios.
-
-Aqui podras ver un [Video tutorial] del software 
 
 ## *Importante*
 Para el correcto funcionamineto del software, hay que tener en cuenta los siguientes puntos:
@@ -148,20 +310,13 @@ Para el correcto funcionamineto del software, hay que tener en cuenta los siguie
 - No se pueden utilizar caracteres como la ñ o vocales con tildes.
 
 ***
-
-### Autolaunch
-cd .... repositorio
-bash config.sh
-
-
 ## Autores
 #### Universidad de Ibagué
 #### Programa de Electrónica
-#### Electrónica Digial III 2019B
+#### Proyecto de Grado
 
 - [Bryan F. Fandiño] - (2420162019@estudiantesunibague.edu.co)
 - [Harold F MURCIA] - Tutor
 
 ***
-[Video tutorial]: <https://youtu.be/vdMDUCXMcxs>
 [Harold F MURCIA]: <http://haroldmurcia.com>
