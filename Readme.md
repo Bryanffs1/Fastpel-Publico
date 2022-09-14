@@ -20,7 +20,7 @@ Los requisitos necesarios para el correcto funcionamiento del servidor constan d
 - 3 Gigabyte de RAM mínimo
 - 160Gb de memoria del disco duro
 
-###Control de acceso
+### Control de acceso
 Los requisitos necesarios para el correcto funcionamiento del control de acceso al laboratorio de ingeniería electrónica constan de:
 
 - Una Raspberry pi 4 modelo B 4GB RAM con sistema operativo recomendado de Raspberry Pi OS (32-bit) con acceso a internet
@@ -42,7 +42,7 @@ Los requisitos necesarios para el correcto funcionamiento del control de acceso 
 - Un led de 3.3v dc
 - Cableado
 
-###Usuario
+### Usuario
 Los requisitos necesarios para el correcto funcionamiento de FASTPEL y el control de acceso para el usuario constan de:
 
   - Un computador con acceso a internet (mejor si es con OS Windows )
@@ -58,7 +58,7 @@ Los requisitos necesarios para el correcto funcionamiento de FASTPEL y el contro
   - Librerias necesarias
 
 ## Como instalar el software
-###Servidor
+### Servidor
 Para el correcto funcionamiento de FastPEL en el servidor, es necesario realizar unos pasos previos antes de iniciar la aplicacion:
 
 **-Instalar las librerias necesarias:**
@@ -190,7 +190,7 @@ puerto_cliente = 5050
 ```
 > **Con esta configuración el software ya está correctamente configurado en el servidor.**
 
-###Control de acceso
+### Control de acceso
 **-Instalar las librerias necesarias en la raspberry pi:**
 
 - Selenium version 4.1.3
@@ -214,7 +214,7 @@ Su instalación en terminal:
 pip instalar mfrc522
 ```
 
-#-Modificar la libreria mfrc522 el script **SimpleMFRC522.py** en:
+-Modificar la libreria mfrc522 el script **SimpleMFRC522.py** en:
 ```sh
   codigo
 ```
@@ -240,7 +240,7 @@ driver.get('http://fastpel.unibague.edu.co:8080/Controllaboratorio')
 ```
 > **Con esta configuración el software ya está correctamente configurado en la raspberry pi.**
 
-###Usuario
+### Usuario
 
 > **Con esta configuración el software ya está correctamente configurado en el computador del usuario.**
 
