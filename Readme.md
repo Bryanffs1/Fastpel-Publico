@@ -352,7 +352,7 @@ Para el correcto funcionamiento del software, hay que tener en cuenta los siguie
 #### Programa de Electrónica
 #### Proyecto de Grado
 
-- [Bryan F. Fandiño] - (2420162019@estudiantesunibague.edu.co)
+- [Bryan F. Fandiño] - (bryanfely@gmail.com)
 - [Harold F MURCIA] - Tutor
 
 ***
