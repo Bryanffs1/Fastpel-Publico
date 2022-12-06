@@ -346,6 +346,36 @@ Para el correcto funcionamiento del software, hay que tener en cuenta los siguie
 - Solo existe un usuario para los monitores el cual siempre tendrá que tener como nombre de usuario "Monitores".
 - Es preferible no utilizar caracteres como la ñ o vocales con tildes en el sistema.
 
+## Soluciones a posibles inconvenientes
+
+**¿El sistema de FastPEL se encuentra caído o no carga?**
+
+Es posible que su computador se haya desconectado del Wifi correspondiente, de no ser así, puede que el servidor de FastPEL se haya caído, lo cual se debe reiniciar el servidor mediante ssh e iniciar nuevamente el sistema como se mencionó anteriormente.
+
+**¿El sistema de control de acceso no funciona?**
+
+Para solucionar diversos errores de funcionamiento del sistema de control de acceso, se debe reiniciar el control de acceso, esto lo podemos lograr conectándonos mediante ssh a la raspberry pi y reiniciándola o podemos ingresar a la caja metálica que se encuentra dentro del laboratorio y se apaga y se vuelve a encender el interruptor del cable de alimentación de la raspberry, luego de unos minutos el sistema debe funcionar correctamente, en el peor de los casos, desconecte y conecte el cable de alimentación de todo el sistema, esto hará que se apague la raspberry pi y los circuitos, reiniciando así todo el sistema.
+
+¿No se solucionó el problema?
+
+Es posible que el Wifi Ai_lab este caído o sin acceso a internet por lo que la raspberry no se puede comunicar con el servidor de FastPEL por lo que hay solucionar que el wifi funcione correctamente, por otro lado, si el wifi funciona correctamente y ya se reinició el sistema del control de acceso, es posible que el servidor de FastPEL se encuentre caído (no la raspberry pi), por lo cual se debe reiniciar el servidor de FastPEL mediante ssh e iniciar nuevamente el sistema como se mencionó anteriormente.
+
+**¿Al realizar un préstamo, el sistema informa que el equipo no existe?**
+
+Verificar si se está digitando bien el código en el campo correspondiente, usualmente la pistola lectora de códigos de barra, falla a la hora de escanear los códigos de barras de los equipos debido a que estos son reflectantes.
+
+¿No se solucionó el problema?
+
+Ir al final de la página de registral equipo y buscar el equipo que tiene incidente en la tabla de los equipos, puede buscarlo por el activo nuevo o el nombre, simplemente oprime "CTRL+f" y escribe el código del equipo o el nombre, si lo encuentras y esta correcto su activo nuevo, probablemente se está digitando mal el código en el préstamo, si no se encuentra dicho equipo, procede a realizar su correspondiente registro.
+
+**¿Al realizar un préstamo, el sistema informa que el estudiante no existe?**
+
+Verificar si se está digitando bien el código en el campo correspondiente, usualmente la pistola lectora de códigos de barra, falla a la hora de escanear los códigos de barras.
+
+¿No se solucionó el problema?
+
+Ir al final de la página de registrar estudiante y buscar el estudiante que tiene incidente en la tabla de los estudiantes, puede buscarlo por el código o el nombre, simplemente oprime "CTRL+f" y escribe el código del estudiante o el nombre, si lo encuentras y esta correcto su información, probablemente se está digitando mal el código en el préstamo, si no se encuentra dicho estudiante, procede a realizar su correspondiente registro.
+
 ***
 ## Autores
 #### Universidad de Ibagué
