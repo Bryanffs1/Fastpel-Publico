@@ -250,6 +250,11 @@ def Prestamos():
 
                                 informacion_con_estado.reset_index(drop = True).to_csv('../data/Historial v2.csv',header=False, index=False, mode='a')
                                 informacion_con_fecha.reset_index(drop = True).to_csv('../data/Prestamos v2.csv',header=False, index=False, mode='a')
+                                
+                                datos_duplicados = pd.read_csv('../data/Prestamos v2.csv')
+                                datos_duplicados=datos_duplicados.drop_duplicates(subset=['ACTIVO NUEVO'])
+                                datos_duplicados.reset_index(drop = True).to_csv('../data/Prestamos v2.csv',header=True, index=False)
+                                datos_duplicados.reset_index(drop = True).to_csv('../data/Prestamos v2.csv',header=True, index=False)
 
                                 flash('El equipo' + str(x) +' se registro satisfactoriamente', 'success') # info  success warning
                                 # info= alumno.iloc[0,1] + '   saco:   ' + equipo.iloc[0,4]  #"Registro guardado"
